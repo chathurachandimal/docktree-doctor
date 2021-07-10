@@ -153,7 +153,6 @@ class ListCard extends StatelessWidget {
                     opacity: 0.64,
                     child: Text('-', maxLines: 1, overflow: TextOverflow.clip),
                   ),
-                  SizedBox(width: 90),
                   GestureDetector(
                       onTap: () {
                         Get.to(DrugListScreen(),
