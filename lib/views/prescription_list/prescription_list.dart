@@ -1,9 +1,9 @@
 import 'package:doctor_app/constants.dart';
-import 'package:doctor_app/views/referel_list/components/body.dart';
+import 'package:doctor_app/views/prescription_list/components/body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-class ReferelListScreen extends StatelessWidget {
+class PrescriptionListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class ReferelListScreen extends StatelessWidget {
           //     Get.back();
           //   },
           // ),
-          Text("Referrals", style: TextStyle(color: Colors.white))
+          Text("Prescriptions", style: TextStyle(color: Colors.white))
         ],
       ),
       elevation: 0,

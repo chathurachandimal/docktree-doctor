@@ -79,6 +79,7 @@ class CheckoutCard extends GetWidget<PrescriptionController> {
                     press: () {
                       if (controller.prescription_drugs.length > 0) {
                         controller.newPrescription(patient_id);
+                        Get.back();
                       } else {
                         Get.snackbar(
                           "Woops",

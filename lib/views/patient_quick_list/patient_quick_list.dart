@@ -1,9 +1,8 @@
 import 'package:doctor_app/constants.dart';
-import 'package:doctor_app/views/referel_list/components/body.dart';
+import 'package:doctor_app/views/patient_quick_list/components/body.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 
-class ReferelListScreen extends StatelessWidget {
+class PatientQuickListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,19 +19,7 @@ class ReferelListScreen extends StatelessWidget {
         color: Colors.white, //change your color here
       ),
       //title: Text("Referels", style: TextStyle(color: Colors.white)),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // IconButton(
-          //   icon: Icon(Icons.home),
-          //   color: Colors.white,
-          //   onPressed: () {
-          //     Get.back();
-          //   },
-          // ),
-          Text("Referrals", style: TextStyle(color: Colors.white))
-        ],
-      ),
+      title: Text("Patients", style: TextStyle(color: Colors.white)),
       elevation: 0,
       // actions: [
       //   IconButton(

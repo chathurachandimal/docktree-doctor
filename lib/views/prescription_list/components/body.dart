@@ -1,15 +1,15 @@
 import 'package:doctor_app/constants.dart';
-import 'package:doctor_app/controllers/referel_list_controller.dart';
-import 'package:doctor_app/models/referel.dart';
+import 'package:doctor_app/controllers/prescription_list_controller.dart';
+import 'package:doctor_app/models/prescription_list.dart';
 import 'package:doctor_app/models/referel_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class Body extends GetWidget<ReferelListController> {
+class Body extends GetWidget<PrescriptionListController> {
   @override
   Widget build(BuildContext context) {
-    controller.fetchRreferels();
+    controller.fetchPrescriptions();
     Size size = MediaQuery.of(context).size;
     // This size provide us total height and width of our screen
     return Column(
@@ -66,9 +66,9 @@ class Body extends GetWidget<ReferelListController> {
             return Center(child: CircularProgressIndicator());
           } else {
             return ListView.builder(
-                itemCount: controller.referels.length,
+                itemCount: controller.prescriptions.length,
                 itemBuilder: (context, index) =>
-                    ListCard(controller.referels[index]));
+                    ListCard(controller.prescriptions[index]));
           }
         }))
       ],
@@ -77,7 +77,7 @@ class Body extends GetWidget<ReferelListController> {
 }
 
 class ListCard extends StatelessWidget {
-  final ReferelList referel;
+  final PrescriptionList referel;
   ListCard(this.referel);
   @override
   Widget build(BuildContext context) {
@@ -85,10 +85,19 @@ class ListCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Row(children: [
-          CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage('assets/images/referral.png'),
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: Stack(
+              fit: StackFit.expand,
+              overflow: Overflow.visible,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('assets/images/prescription.png'),
+                )
+              ],
+            ),
           ),
           Expanded(
               child: Padding(
@@ -96,12 +105,12 @@ class ListCard extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                  'for ${referel.doctor_id_referral['first_name']} ${referel.doctor_id_referral['last_name']}',
+                  'for ${referel.patient_id['first_name']} ${referel.patient_id['last_name']}',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
               SizedBox(height: 8),
               Opacity(
                 opacity: 0.64,
-                child: Text('${referel.referral_note}',
+                child: Text('${referel.createdAt}',
                     maxLines: 1, overflow: TextOverflow.clip),
               )
             ]),

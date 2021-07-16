@@ -24,7 +24,10 @@ class AuthService {
       Map auth_ = res.data;
       if (auth_['auth']) {
         return new Auth(
-            auth: auth_['auth'], token: auth_['token'], user: auth_['user'],doctor: auth_['doctor']);
+            auth: auth_['auth'],
+            token: auth_['token'],
+            user: auth_['user'],
+            doctor: auth_['doctor']);
       } else {
         throw ('Invalid username or password');
       }

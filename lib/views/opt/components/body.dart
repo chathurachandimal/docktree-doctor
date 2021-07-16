@@ -41,6 +41,7 @@ class Body extends GetWidget<OptController> {
                   width: (size.width * (60 / 375)),
                   child: TextFormField(
                     autofocus: true,
+                    maxLength: 1,
                     obscureText: true,
                     cursorColor: kTextDarkColor,
                     style: TextStyle(fontSize: 24),
@@ -52,6 +53,7 @@ class Body extends GetWidget<OptController> {
                 SizedBox(
                   width: (size.width * (60 / 375)),
                   child: TextFormField(
+                    maxLength: 1,
                     autofocus: true,
                     obscureText: true,
                     style: TextStyle(fontSize: 24),
@@ -65,6 +67,7 @@ class Body extends GetWidget<OptController> {
                   width: (size.width * (60 / 375)),
                   child: TextFormField(
                     autofocus: true,
+                    maxLength: 1,
                     obscureText: true,
                     style: TextStyle(fontSize: 24),
                     cursorColor: kTextDarkColor,
@@ -76,6 +79,7 @@ class Body extends GetWidget<OptController> {
                 SizedBox(
                   width: (size.width * (60 / 375)),
                   child: TextFormField(
+                    maxLength: 1,
                     autofocus: true,
                     obscureText: true,
                     style: TextStyle(fontSize: 24),

@@ -6,6 +6,11 @@ import 'package:get/get.dart';
 class PatientProfileController extends GetxController {
   var patient = Patient().obs;
   var isLoading = true.obs;
+
+  onInit() {
+    print("patient init");
+  }
+
   PatientService patient_service = new PatientService();
 
   void findPatient(int id) async {

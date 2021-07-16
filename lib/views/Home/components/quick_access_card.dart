@@ -7,13 +7,15 @@ class QuickAccessCard extends StatelessWidget {
   final String title;
   final StatelessWidget screen_;
   final double size;
+  final Map arg_;
   const QuickAccessCard({
     Key key,
     this.svgSrc,
     this.title,
     this.screen_,
     this.size,
-  }) : super(key: key);
+    this.arg_,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class QuickAccessCard extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            //Get.to(screen_);
+            Get.to(screen_, arguments: arg_);
           },
           child: Image.asset(
             svgSrc,

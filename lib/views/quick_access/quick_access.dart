@@ -7,17 +7,24 @@ class QuickAccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(body: Body());
+    return Scaffold(appBar: buildAppBar(size), body: Body());
   }
 
   AppBar buildAppBar(Size size) {
     return AppBar(
-      backgroundColor: appBarBackgroundColor,
+      backgroundColor: Colors.white,
       brightness: Brightness.dark,
       automaticallyImplyLeading: false,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [Text("Quick Access", style: TextStyle(color: Colors.white))],
+      centerTitle: false,
+      title: Transform(
+        transform: Matrix4.translationValues(5.0, 0.0, 0.0),
+        child: Text(
+          "Quick Access",
+          style: TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       elevation: 0,
       // actions: [

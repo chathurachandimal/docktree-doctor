@@ -15,9 +15,6 @@ class ReferelController extends GetxController {
         referels.insert(0, registerData);
         Get.snackbar("Success", "Referral has been created",
             snackPosition: SnackPosition.BOTTOM);
-
-        var future = new Future.delayed(const Duration(milliseconds: 2000),
-            () => Get.off(PatientListScreen()));
       }
     } catch (e) {
       print(e);

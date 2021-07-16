@@ -4,6 +4,7 @@ const String baseURL = 'http://54.179.2.162:8080/api/';
 
 const kPrimaryColor = Color.fromRGBO(0, 172, 238, 1);
 const kPrimaryLightColor = Color.fromRGBO(0, 172, 238, .1);
+const kSecondaryColor = Color(0xFF979797);
 
 const kTextFillColor = Color.fromRGBO(240, 240, 240, 1);
 const kTextDarkColor = Color.fromRGBO(0, 0, 0, .8);

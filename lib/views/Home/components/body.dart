@@ -1,9 +1,9 @@
 import 'package:doctor_app/components/header.dart';
-import 'package:doctor_app/views/drug_list/drug_list.dart';
+import 'package:doctor_app/views/Home/components/quick_access_card.dart';
 import 'package:doctor_app/views/patient_list/patient_list.dart';
+import 'package:doctor_app/views/prescription_list/prescription_list.dart';
 import 'package:doctor_app/views/referel_list/referel_list.dart';
 import 'package:doctor_app/views/welcome/components/background.dart';
-import 'package:doctor_app/views/welcome/components/quick_access_card.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/constants.dart';
 import 'package:flutter/services.dart';
@@ -128,7 +128,7 @@ class Body extends StatelessWidget {
                             svgSrc: "assets/images/prescription.png",
                             title: "Prescription",
                             size: 50,
-                            screen_: DrugListScreen()),
+                            screen_: PrescriptionListScreen()),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 20),

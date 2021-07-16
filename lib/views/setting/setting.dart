@@ -1,16 +1,14 @@
-import 'package:doctor_app/constants.dart';
-import 'package:doctor_app/views/patient_list/components/body.dart';
+import 'package:doctor_app/views/setting/components/body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class PatientListScreen extends StatelessWidget {
+class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-
     Size size = MediaQuery.of(context).size;
-    return Scaffold(appBar: buildAppBar(size), body: Body());
+    return Scaffold(
+      appBar: buildAppBar(size),
+      body: Body(),
+    );
   }
 
   AppBar buildAppBar(Size size) {
@@ -22,7 +20,7 @@ class PatientListScreen extends StatelessWidget {
       title: Transform(
         transform: Matrix4.translationValues(5.0, 0.0, 0.0),
         child: Text(
-          "Patients",
+          "Settings",
           style: TextStyle(
             fontSize: 32.0,
             fontWeight: FontWeight.bold,

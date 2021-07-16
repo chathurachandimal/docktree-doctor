@@ -1,9 +1,9 @@
 import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/doctor_controller.dart';
 import 'package:doctor_app/models/doctor.dart';
+import 'package:doctor_app/size_config.dart';
 import 'package:doctor_app/views/referel_add/patient_add.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
@@ -13,71 +13,66 @@ class Body extends GetWidget<DoctorController> {
     controller.fetchDoctors();
     int patient_id = Get.arguments['patient_id'];
     Size size = MediaQuery.of(context).size;
-    // This size provide us total height and width of our screen
-    return Column(
-      children: <Widget>[
-        Container(
-            color: appBarBackgroundColor,
-            child: Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 150,
-                      color: appBarBackgroundColor.withOpacity(0.23),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        onChanged: (value) {},
-                        cursorColor: kTextDarkColor.withOpacity(0.5),
-                        decoration: InputDecoration(
-                          hintText: "Search",
-                          hintStyle: TextStyle(
-                            color: kTextDarkColor.withOpacity(0.5),
-                          ),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          // surffix isn't working properly  with SVG
-                          // thats why we use row
-                          // suffixIcon: SvgPicture.asset("assets/icons/search.svg"),
-                        ),
-                      ),
-                    ),
-                    SvgPicture.asset("assets/icons/search.svg"),
-                  ],
-                ),
-              ),
-            )),
-        SizedBox(height: size.height * 0.03),
-        Expanded(child: Obx(() {
-          if (controller.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return ListView.separated(
-              itemCount: controller.doctors.length,
-              separatorBuilder: (context, index) => Divider(),
-              itemBuilder: (context, index) {
-                // final item = items[index];
-                return ListCard(controller.doctors[index], patient_id);
+
+    return ListView(children: <Widget>[
+      SizedBox(height: 10.0),
+      _buildSearchBar(),
+      SizedBox(height: 10.0),
+      Divider(),
+      _buildList(size, patient_id),
+    ]);
+  }
+
+  _buildSearchBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: kSecondaryColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextField(
+        onChanged: (value) => print(value),
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20),
+                vertical: getProportionateScreenWidth(9)),
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            hintText: "Search doctor",
+            prefixIcon: Icon(Icons.search)),
+      ),
+    );
+  }
+
+  Future<Null> onRefresh() {
+    controller.fetchDoctors();
+    return null;
+  }
+
+  _buildList(Size size, int patient_id) {
+    return Obx(
+      () {
+        if (controller.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return RefreshIndicator(
+              onRefresh: () {
+                onRefresh();
               },
-            );
-          }
-        }))
-      ],
+              child: ListView.separated(
+                shrinkWrap: true,
+                primary: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: controller.doctors.length,
+                separatorBuilder: (context, index) => Divider(),
+                itemBuilder: (context, index) {
+                  // final item = items[index];
+                  return ListCard(controller.doctors[index], patient_id);
+                },
+              ));
+        }
+      },
     );
   }
 }
@@ -91,8 +86,10 @@ class ListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ReferelAddScreen(),
-            arguments: {"doc_id": doctor.id, "patient_id": patient_id});
+        if (patient_id != 0) {
+          Get.to(ReferelAddScreen(),
+              arguments: {"doc_id": doctor.id, "patient_id": patient_id});
+        }
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),

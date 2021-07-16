@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctor_app/models/prescription.dart';
+import 'package:doctor_app/models/prescription_list.dart';
 import 'package:doctor_app/models/referel.dart';
 
 class PrescriptionService {
@@ -8,7 +9,7 @@ class PrescriptionService {
   final String newURL =
       'http://54.179.2.162:8090/api/medical-service/prescription';
   final String fetchURL =
-      'http://54.179.2.162:8090/api/medical-service/referralByCreatedDoctor/';
+      'http://54.179.2.162:8090/api/medical-service/getPrescriptionWithDoctorsAndPatientById/';
 
   Future<String> newPrescription(pres) async {
     print(newURL);
@@ -28,7 +29,7 @@ class PrescriptionService {
     }
   }
 
-  Future<List<Referel>> fetchReferels(doc_id) async {
+  Future<List<PrescriptionList>> fetchPrescriptions(doc_id) async {
     print(fetchURL + doc_id.toString());
     var res = await dio.get(fetchURL + doc_id.toString()).catchError((e) {
       print(fetchURL);
@@ -36,8 +37,8 @@ class PrescriptionService {
       throw (e.message);
     });
     if (res.statusCode == 200) {
-      return List<Referel>.from(
-          json.decode(res.data).map((x) => Referel.fromJson(x)));
+      return List<PrescriptionList>.from(
+          res.data.map((x) => PrescriptionList.fromJson(x)));
     } else {
       throw ('Error ${res.statusCode}');
     }

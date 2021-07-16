@@ -1,10 +1,10 @@
 import 'package:doctor_app/components/custom_list_tile.dart';
 import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/patient_profile_controller.dart';
-import 'package:doctor_app/models/patient.dart';
+import 'package:doctor_app/views/Home/components/quick_access_card.dart';
 import 'package:doctor_app/views/doctor_list/doctor_list.dart';
+import 'package:doctor_app/views/drug_list/drug_list.dart';
 import 'package:doctor_app/views/patient_history/patient_history.dart';
-import 'package:doctor_app/views/welcome/components/quick_access_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -15,10 +15,9 @@ class Body extends GetWidget<PatientProfileController> {
     Size size = MediaQuery.of(context).size;
     int id = Get.arguments['id'];
     controller.findPatient(id);
-    Patient profile = controller.patient.value;
-    String joinedDate =
-        DateFormat('MMMM yyyy').format(profile.createdAt).toString();
-    print(joinedDate);
+    // String joinedDate =
+    //     DateFormat('MMMM yyyy').format(profile.createdAt).toString();
+    // print(joinedDate);
     // This size provide us total height and width of our screen
     return Scaffold(
       backgroundColor: Colors.white,
@@ -72,7 +71,7 @@ class Body extends GetWidget<PatientProfileController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '${profile.first_name} ${profile.last_name}',
+                            '${controller.patient.value.first_name} ${controller.patient.value.last_name}',
                             style: TextStyle(
                               fontSize: 16.0,
                             ),
@@ -81,7 +80,7 @@ class Body extends GetWidget<PatientProfileController> {
                             height: 10.0,
                           ),
                           Text(
-                            "User since",
+                            "User since ${DateFormat('MMMM yyyy').format(controller.patient.value.createdAt).toString()}",
                             style: TextStyle(color: Colors.grey),
                           ),
                           SizedBox(
@@ -114,15 +113,16 @@ class Body extends GetWidget<PatientProfileController> {
                           CustomListTile(
                               icon: Icons.person,
                               text:
-                                  '${profile.first_name} ${profile.last_name}',
-                              text2: 'Age ${profile.age ?? 'n/a'}'),
+                                  '${controller.patient.value.first_name} ${controller.patient.value.last_name}',
+                              text2:
+                                  'Age ${controller.patient.value.age ?? 'n/a'}'),
                           Divider(
                             height: 10.0,
                             color: Colors.grey,
                           ),
                           CustomListTile(
                             icon: Icons.phone,
-                            text: '${profile.mobile ?? '-'}',
+                            text: '${controller.patient.value.mobile ?? '-'}',
                           ),
                           Divider(
                             height: 10.0,
@@ -130,7 +130,7 @@ class Body extends GetWidget<PatientProfileController> {
                           ),
                           CustomListTile(
                             icon: Icons.people_alt_rounded,
-                            text: '${profile.gender ?? 'n/a'}',
+                            text: '${controller.patient.value.gender ?? 'n/a'}',
                           ),
                         ],
                       ),
@@ -260,7 +260,8 @@ class Body extends GetWidget<PatientProfileController> {
                             svgSrc: "assets/images/investigation.png",
                             title: "History",
                             size: 50,
-                            screen_: PatientHistoryScreen()),
+                            screen_: PatientHistoryScreen(),
+                            arg_: {"patient_": id}),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 20),
@@ -282,7 +283,8 @@ class Body extends GetWidget<PatientProfileController> {
                             svgSrc: "assets/images/referral.png",
                             title: "Referral",
                             size: 50,
-                            screen_: DoctortListScreen()),
+                            screen_: DoctortListScreen(),
+                            arg_: {"patient_": id}),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 20),
@@ -304,6 +306,8 @@ class Body extends GetWidget<PatientProfileController> {
                           svgSrc: "assets/images/prescription.png",
                           size: 40,
                           title: "Prescription",
+                          screen_: DrugListScreen(),
+                          arg_: {"patient_": id},
                         ),
                       )
                     ],

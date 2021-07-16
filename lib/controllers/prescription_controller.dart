@@ -29,6 +29,8 @@ class PrescriptionController extends GetxController {
       var registerData = await prescription_service.newPrescription(pres);
       print(registerData);
       if (registerData != null) {
+        prescription_drugs.clear();
+        note.value = '';
         //referels.insert(0, registerData);
         Get.snackbar("Success", "Prescription has been created",
             snackPosition: SnackPosition.BOTTOM);

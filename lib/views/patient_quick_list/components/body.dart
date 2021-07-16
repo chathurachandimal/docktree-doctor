@@ -1,5 +1,5 @@
 import 'package:doctor_app/constants.dart';
-import 'package:doctor_app/controllers/patient_controller.dart';
+import 'package:doctor_app/controllers/patient_quick_controller.dart';
 import 'package:doctor_app/models/patient.dart';
 import 'package:doctor_app/size_config.dart';
 import 'package:doctor_app/views/doctor_list/doctor_list.dart';
@@ -8,11 +8,9 @@ import 'package:doctor_app/views/patient_add/patient_add.dart';
 import 'package:doctor_app/views/patient_profile/patient_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 
-class Body extends GetWidget<PatientController> {
-  double offset = 0;
-
+class Body extends GetWidget<PatientQuickController> {
+  final TextEditingController drugController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     controller.fetchPatients();
@@ -27,29 +25,6 @@ class Body extends GetWidget<PatientController> {
       Divider(),
       _buildList(size),
     ]);
-  }
-
-  Future<Null> onRefresh() {
-    controller.fetchPatients();
-    return null;
-  }
-
-  _buildHeader() {
-    return Container(
-      height: 50.0,
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              "Patients",
-              style: TextStyle(
-                fontSize: 32.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ]),
-    );
   }
 
   _buildSearchBar() {
@@ -68,7 +43,7 @@ class Body extends GetWidget<PatientController> {
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
-            hintText: "Search patient",
+            hintText: "Search drugs",
             prefixIcon: Icon(Icons.search)),
       ),
     );
@@ -90,6 +65,11 @@ class Body extends GetWidget<PatientController> {
         ),
       ]),
     );
+  }
+
+  Future<Null> onRefresh() {
+    controller.fetchPatients();
+    return null;
   }
 
   _buildList(Size size) {

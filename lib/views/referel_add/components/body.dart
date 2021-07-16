@@ -56,6 +56,7 @@ class Body extends GetWidget<ReferelController> {
                     "doctor_id_referral": doc_id,
                     "patient_id": patient_id
                   });
+                  Get.back();
                 },
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center),

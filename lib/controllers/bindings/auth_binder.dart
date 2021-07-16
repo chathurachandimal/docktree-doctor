@@ -5,7 +5,9 @@ import 'package:doctor_app/controllers/drug_list_controller.dart';
 import 'package:doctor_app/controllers/opt_controller.dart';
 import 'package:doctor_app/controllers/patient_controller.dart';
 import 'package:doctor_app/controllers/patient_profile_controller.dart';
+import 'package:doctor_app/controllers/patient_quick_controller.dart';
 import 'package:doctor_app/controllers/prescription_controller.dart';
+import 'package:doctor_app/controllers/prescription_list_controller.dart';
 import 'package:doctor_app/controllers/referel_controller.dart';
 import 'package:doctor_app/controllers/referel_list_controller.dart';
 import 'package:doctor_app/controllers/register_controller.dart';
@@ -16,36 +18,38 @@ class AuthBinder extends Bindings {
   @override
   void dependencies() {
     /** WELCOME */
-    Get.lazyPut<WelcomeController>(() => WelcomeController());
+    Get.put(WelcomeController());
     /** WELCOME */
 
     /** AUTH */
-    Get.lazyPut<AuthController>(() => AuthController());
-    Get.lazyPut<RegisterController>(() => RegisterController());
-    Get.lazyPut<OptController>(() => OptController());
+    Get.put(AuthController());
+    Get.put(RegisterController());
+    Get.put(OptController());
     /** AUTH */
 
     /** PATIENT */
-    Get.lazyPut<PatientController>(() => PatientController());
-    Get.lazyPut<PatientProfileController>(() => PatientProfileController());
+    Get.put(PatientController());
+    Get.put(PatientQuickController());
+    Get.put(PatientProfileController());
     /** PATIENT */
 
     /** DOCTOR */
-    Get.lazyPut<DoctorController>(() => DoctorController());
-    Get.lazyPut<DoctorProfileController>(() => DoctorProfileController());
+    Get.put(DoctorController());
+    Get.put(DoctorProfileController());
     /** DOCTOR */
 
     /** REFERRAL */
-    Get.lazyPut<ReferelController>(() => ReferelController());
-    Get.lazyPut<ReferelListController>(() => ReferelListController());
+    Get.put(ReferelController());
+    Get.put(ReferelListController());
     /** REFERRAL */
 
     /** DRUG */
-    Get.lazyPut<DrugListController>(() => DrugListController());
+    Get.put(DrugListController());
     /** DRUG */
 
     /** PRESCRIPTION */
-    Get.lazyPut<PrescriptionController>(() => PrescriptionController());
+    Get.put(PrescriptionController());
+    Get.put(PrescriptionListController());
     /** PRESCRIPTION */
   }
 }
