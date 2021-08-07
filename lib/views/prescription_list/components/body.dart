@@ -40,7 +40,13 @@ class Body extends GetWidget<PrescriptionListController> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          if (value.length > 0) {
+                            controller.searchPrescriptions(value);
+                          } else {
+                            controller.fetchPrescriptions();
+                          }
+                        },
                         cursorColor: kTextDarkColor.withOpacity(0.5),
                         decoration: InputDecoration(
                           hintText: "Search",

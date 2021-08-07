@@ -52,4 +52,23 @@ class DrugListController extends GetxController {
       );
     }
   }
+
+  void searchDrugs(String q) async {
+    try {
+      isLoading(true);
+      var drugs_ = await drug_service.searchDrugs(storage_.read('doc_id'), q);
+      if (drugs_ != null) {
+        drugs.assignAll(drugs_);
+      }
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Woops",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading(false);
+    }
+  }
 }

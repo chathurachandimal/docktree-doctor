@@ -1,6 +1,7 @@
 import 'package:doctor_app/components/header.dart';
 import 'package:doctor_app/views/Home/components/quick_access_card.dart';
 import 'package:doctor_app/views/patient_list/patient_list.dart';
+import 'package:doctor_app/views/patient_profile/patient_profile.dart';
 import 'package:doctor_app/views/prescription_list/prescription_list.dart';
 import 'package:doctor_app/views/referel_list/referel_list.dart';
 import 'package:doctor_app/views/welcome/components/background.dart';
@@ -9,6 +10,7 @@ import 'package:doctor_app/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class Body extends StatelessWidget {
@@ -140,10 +142,11 @@ class Body extends StatelessWidget {
                           color: Color.fromRGBO(242, 120, 124, 1),
                         ),
                         child: QuickAccessCard(
-                            svgSrc: "assets/images/investigation.png",
-                            title: "Investigation",
-                            size: 50,
-                            screen_: PatientListScreen()),
+                          svgSrc: "assets/images/investigation.png",
+                          title: "Investigation",
+                          size: 50,
+                          //screen_: PatientListScreen()
+                        ),
                       )
                     ],
                   ),
@@ -227,6 +230,7 @@ class Body extends StatelessWidget {
       //  if (!mounted) return;
 
       this.qrCode = qrCode;
+      Get.to(PatientProfileScreen(), arguments: {"id": this.qrCode});
     } on PlatformException {
       qrCode = 'Failed to get platform version.';
     }

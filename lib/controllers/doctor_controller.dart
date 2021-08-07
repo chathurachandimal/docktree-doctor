@@ -26,4 +26,23 @@ class DoctorController extends GetxController {
       isLoading(false);
     }
   }
+
+  void searchDoctors(String q) async {
+    try {
+      isLoading(true);
+      var doctors_ = await doc_service.searchDoctors(q);
+      if (doctors_ != null) {
+        doctors.assignAll(doctors_);
+      }
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Woops",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading(false);
+    }
+  }
 }

@@ -19,6 +19,7 @@ class AuthController extends GetxController {
       if (authData_ != null && authData_.doctor != null) {
         storage_.write('is_logged', authData_.auth);
         storage_.write('username', authData_.doctor['first_name']);
+        storage_.write('full_name', authData_.doctor['first_name']+' '+authData_.doctor['last_name']);
         storage_.write('doc_id', authData_.doctor['id']);
         storage_.write('token', authData_.token);
         Get.off(WelcomeScreen());

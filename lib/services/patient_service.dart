@@ -6,6 +6,7 @@ class PatientService {
   Dio dio = Dio();
   final String registerURL = 'http://54.179.2.162:8089/api/patient';
   final String fetchURL = 'http://54.179.2.162:8089/api/patient';
+  final String searchURL = 'http://54.179.2.162:8089/api/patient/search';
   final String findURL = 'http://54.179.2.162:8089/api/patient';
 
   Future<Patient> register(patient) async {
@@ -41,6 +42,20 @@ class PatientService {
   Future<List<Patient>> fetchPatients() async {
     print(fetchURL);
     var res = await dio.get(fetchURL).catchError((e) {
+      print(registerURL);
+      print(e);
+      throw (e.message);
+    });
+    if (res.statusCode == 200) {
+      return List<Patient>.from(res.data.map((x) => Patient.fromJson(x)));
+    } else {
+      throw ('Error ${res.statusCode}');
+    }
+  }
+
+  Future<List<Patient>> searchPatients(String q) async {
+    print(searchURL + "/" + q);
+    var res = await dio.get(searchURL + "/" + q).catchError((e) {
       print(registerURL);
       print(e);
       throw (e.message);

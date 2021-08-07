@@ -60,7 +60,13 @@ class Body extends GetWidget<PatientController> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
-        onChanged: (value) => print(value),
+        onChanged: (value) => {
+          if(value.length > 0){
+            controller.searchPatients(value)
+          }else{
+            controller.fetchPatients()
+          }
+        },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),
@@ -202,7 +208,7 @@ class ListCard extends StatelessWidget {
                   GestureDetector(
                       onTap: () {
                         Get.to(DoctortListScreen(),
-                            arguments: {"patient_id": patient.id});
+                            arguments: {"patient_id": patient.id,"patient_name":patient.first_name +' '+patient.last_name});
                       },
                       child: (Container(
                         //margin: EdgeInsets.only(top: 20),

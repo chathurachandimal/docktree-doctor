@@ -74,4 +74,23 @@ class PatientController extends GetxController {
       isLoading(false);
     }
   }
+
+  void searchPatients(String q) async {
+    try {
+      isLoading(true);
+      var patients_ = await patient_service.searchPatients(q);
+      if (patients_ != null) {
+        patients.assignAll(patients_);
+      }
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Woops",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading(false);
+    }
+  }
 }

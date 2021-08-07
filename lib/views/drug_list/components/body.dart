@@ -40,7 +40,12 @@ class Body extends GetWidget<DrugListController> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
-        onChanged: (value) => print(value),
+        onChanged: (value) => {
+          if (value.length > 0)
+            {controller.searchDrugs(value)}
+          else
+            {controller.fetchDrugs()}
+        },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),

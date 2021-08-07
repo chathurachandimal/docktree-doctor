@@ -18,6 +18,7 @@ class Body extends GetWidget<PatientQuickController> {
     // This size provide us total height and width of our screen
 
     return ListView(children: <Widget>[
+      SizedBox(height: 20.0),
       _buildSearchBar(),
       SizedBox(height: 20.0),
       _buildAddLink(),
@@ -35,7 +36,12 @@ class Body extends GetWidget<PatientQuickController> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
-        onChanged: (value) => print(value),
+        onChanged: (value) => {
+          if (value.length > 0)
+            {controller.searchPatients(value)}
+          else
+            {controller.fetchPatients()}
+        },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),
@@ -181,8 +187,11 @@ class ListCard extends StatelessWidget {
                   SizedBox(width: 15),
                   GestureDetector(
                       onTap: () {
-                        Get.to(DoctortListScreen(),
-                            arguments: {"patient_id": patient.id});
+                        Get.to(DoctortListScreen(), arguments: {
+                          "patient_id": patient.id,
+                          "patient_name":
+                              patient.first_name + ' ' + patient.last_name
+                        });
                       },
                       child: (Container(
                         //margin: EdgeInsets.only(top: 20),

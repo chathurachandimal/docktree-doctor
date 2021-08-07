@@ -15,6 +15,7 @@ class Body extends GetWidget<PatientProfileController> {
     Size size = MediaQuery.of(context).size;
     int id = Get.arguments['id'];
     controller.findPatient(id);
+    controller.fetchRreferels(id);
     // String joinedDate =
     //     DateFormat('MMMM yyyy').format(profile.createdAt).toString();
     // print(joinedDate);
@@ -216,7 +217,12 @@ class Body extends GetWidget<PatientProfileController> {
                       ),
                       Spacer(),
                       Text(
-                        "-",
+                        controller.referels.length > 0
+                            ? 'Dr. ' +
+                                controller.referels[0].doctor_id['first_name'] +
+                                ' ' +
+                                controller.referels[0].doctor_id['last_name']
+                            : '-',
                         style: TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -230,7 +236,10 @@ class Body extends GetWidget<PatientProfileController> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('no any referels',
+                        Text(
+                            controller.referels.length > 0
+                                ? controller.referels[0].referral_note
+                                : 'no any referels',
                             maxLines: 8,
                             style: TextStyle(height: 1.2, letterSpacing: 1.0)),
                       ]),
@@ -284,7 +293,13 @@ class Body extends GetWidget<PatientProfileController> {
                             title: "Referral",
                             size: 50,
                             screen_: DoctortListScreen(),
-                            arg_: {"patient_": id}),
+                            arg_: {
+                              "patient_": id,
+                              "patient_name":
+                                  controller.patient.value.first_name +
+                                      ' ' +
+                                      controller.patient.value.last_name
+                            }),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 20),

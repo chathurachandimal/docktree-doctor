@@ -98,7 +98,7 @@ class ListCard extends StatelessWidget {
                 ),
                 SizedBox(height: 1),
                 Text(
-                  'Dr Rizil',
+                  'Dr ..',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                       color: kTextDarkColor,
                       fontSize: 13,

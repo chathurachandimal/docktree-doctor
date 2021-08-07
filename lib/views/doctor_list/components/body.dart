@@ -12,6 +12,7 @@ class Body extends GetWidget<DoctorController> {
   Widget build(BuildContext context) {
     controller.fetchDoctors();
     int patient_id = Get.arguments['patient_id'];
+    String patient_name = Get.arguments['patient_name'];
     Size size = MediaQuery.of(context).size;
 
     return ListView(children: <Widget>[
@@ -19,7 +20,7 @@ class Body extends GetWidget<DoctorController> {
       _buildSearchBar(),
       SizedBox(height: 10.0),
       Divider(),
-      _buildList(size, patient_id),
+      _buildList(size, patient_id, patient_name),
     ]);
   }
 
@@ -31,7 +32,12 @@ class Body extends GetWidget<DoctorController> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
-        onChanged: (value) => print(value),
+        onChanged: (value) => {
+          if (value.length > 0)
+            {controller.searchDoctors(value)}
+          else
+            {controller.fetchDoctors()}
+        },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),
@@ -50,7 +56,7 @@ class Body extends GetWidget<DoctorController> {
     return null;
   }
 
-  _buildList(Size size, int patient_id) {
+  _buildList(Size size, int patient_id, String patientName) {
     return Obx(
       () {
         if (controller.isLoading.value) {
@@ -68,7 +74,8 @@ class Body extends GetWidget<DoctorController> {
                 separatorBuilder: (context, index) => Divider(),
                 itemBuilder: (context, index) {
                   // final item = items[index];
-                  return ListCard(controller.doctors[index], patient_id);
+                  return ListCard(
+                      controller.doctors[index], patient_id, patientName);
                 },
               ));
         }
@@ -80,15 +87,21 @@ class Body extends GetWidget<DoctorController> {
 class ListCard extends StatelessWidget {
   final Doctor doctor;
   final int patient_id;
-  ListCard(this.doctor, this.patient_id);
+  final String patientName;
+  ListCard(this.doctor, this.patient_id, this.patientName);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         if (patient_id != 0) {
-          Get.to(ReferelAddScreen(),
-              arguments: {"doc_id": doctor.id, "patient_id": patient_id});
+          Get.to(ReferelAddScreen(), arguments: {
+            "doc_id": doctor.id,
+            "patient_id": patient_id,
+            "patient_name": patientName,
+            "referDoc": doctor.first_name + ' ' + doctor.last_name,
+            "note": ""
+          });
         }
       },
       child: Padding(

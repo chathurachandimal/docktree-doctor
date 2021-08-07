@@ -29,4 +29,24 @@ class PrescriptionListController extends GetxController {
       isLoading(false);
     }
   }
+
+  void searchPrescriptions(String q) async {
+    try {
+      isLoading(true);
+      var prescriptions_ = await rprescription_service.searchPrescriptions(
+          storage_.read('doc_id'), q);
+      if (prescriptions_ != null) {
+        prescriptions.assignAll(prescriptions_);
+      }
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Woops",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      isLoading(false);
+    }
+  }
 }

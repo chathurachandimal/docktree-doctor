@@ -1,6 +1,5 @@
 import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/referel_list_controller.dart';
-import 'package:doctor_app/models/referel.dart';
 import 'package:doctor_app/models/referel_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,7 +39,13 @@ class Body extends GetWidget<ReferelListController> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          if (value.length > 0) {
+                            controller.searchRreferels(value);
+                          } else {
+                            controller.fetchRreferels();
+                          }
+                        },
                         cursorColor: kTextDarkColor.withOpacity(0.5),
                         decoration: InputDecoration(
                           hintText: "Search",
