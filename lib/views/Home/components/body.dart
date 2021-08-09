@@ -230,7 +230,7 @@ class Body extends StatelessWidget {
       //  if (!mounted) return;
 
       this.qrCode = qrCode;
-      Get.to(PatientProfileScreen(), arguments: {"id": this.qrCode});
+      Get.to(PatientProfileScreen(), arguments: {"id":  int.parse(this.qrCode.toString()) });
     } on PlatformException {
       qrCode = 'Failed to get platform version.';
     }
