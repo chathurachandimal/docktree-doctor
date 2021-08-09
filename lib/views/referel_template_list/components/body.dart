@@ -1,7 +1,7 @@
 import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/referel_template_list_controller.dart';
 import 'package:doctor_app/models/referel_template_list.dart';
-import 'package:doctor_app/views/referel_add/patient_add.dart';
+import 'package:doctor_app/views/referel_add/referel_add.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

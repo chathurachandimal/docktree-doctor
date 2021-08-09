@@ -10,6 +10,8 @@ class ReferelService {
   final String newURL = 'http://54.179.2.162:8090/api/medical-service/referral';
   final String fetchURL =
       'http://54.179.2.162:8090/api/medical-service/getReferralWithDoctorsAndPatientById/';
+  final String fetchRefURL =
+      'http://54.179.2.162:8090/api/medical-service/getReferralWithDoctorsAndPatientByReferralDoctorId/';
   final String searchURL =
       'http://54.179.2.162:8090/api/medical-service/referral/search/';
   final String newTemplateURL =
@@ -18,6 +20,8 @@ class ReferelService {
       'http://54.179.2.162:8090/api/medical-service/referralNoteTemplateWithRefDocPatientByDoctorId/';
   final String fetchProfileURL =
       'http://54.179.2.162:8090/api/medical-service/getLastReferralByDoctorsAndPatient/';
+  final String fetchOneURL =
+      'http://54.179.2.162:8090/api/medical-service/referral/';
 
   Future<Referel> newReferel(referel) async {
     print(newURL);
@@ -57,9 +61,13 @@ class ReferelService {
     }
   }
 
-  Future<List<ReferelList>> fetchReferels(doc_id) async {
-    print(fetchURL + doc_id.toString());
-    var res = await dio.get(fetchURL + doc_id.toString()).catchError((e) {
+  Future<List<ReferelList>> fetchReferels(doc_id, int type) async {
+    String URL = fetchURL;
+    if (type == 1) {
+      URL = fetchRefURL;
+    }
+    print(URL + doc_id.toString());
+    var res = await dio.get(URL + doc_id.toString()).catchError((e) {
       print(fetchURL);
       print(e);
       throw (e.message);
@@ -116,6 +124,20 @@ class ReferelService {
     if (res.statusCode == 200) {
       return List<ReferelLeatest>.from(
           json.decode(res.data).map((x) => ReferelLeatest.fromJson(x)));
+    } else {
+      throw ('Error ${res.statusCode}');
+    }
+  }
+
+  Future<ReferelList> fetchOneReferel(int id) async {
+    print(fetchOneURL + id.toString());
+    var res = await dio.get(fetchOneURL + id.toString()).catchError((e) {
+      print(fetchURL);
+      print(e);
+      throw (e.message);
+    });
+    if (res.statusCode == 200) {
+      return ReferelList.fromJson(json.decode(res.data));
     } else {
       throw ('Error ${res.statusCode}');
     }

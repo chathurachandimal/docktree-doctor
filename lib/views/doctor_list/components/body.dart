@@ -2,7 +2,7 @@ import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/doctor_controller.dart';
 import 'package:doctor_app/models/doctor.dart';
 import 'package:doctor_app/size_config.dart';
-import 'package:doctor_app/views/referel_add/patient_add.dart';
+import 'package:doctor_app/views/referel_add/referel_add.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';

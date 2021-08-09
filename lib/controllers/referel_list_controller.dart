@@ -7,14 +7,16 @@ import 'package:get_storage/get_storage.dart';
 class ReferelListController extends GetxController {
   var referels = List<ReferelList>().obs;
   var isLoading = true.obs;
+  var selectedIndex = 0.obs;
+  var selections = [true, false].obs;
   ReferelService referel_service = new ReferelService();
   final storage_ = GetStorage();
 
   void fetchRreferels() async {
     try {
       isLoading(true);
-      var referels_ =
-          await referel_service.fetchReferels(storage_.read('doc_id'));
+      var referels_ = await referel_service.fetchReferels(
+          storage_.read('doc_id'), selectedIndex.value);
       if (referels_ != null) {
         referels.assignAll(referels_);
       }

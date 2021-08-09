@@ -10,7 +10,9 @@ import 'package:doctor_app/controllers/prescription_controller.dart';
 import 'package:doctor_app/controllers/prescription_list_controller.dart';
 import 'package:doctor_app/controllers/referel_controller.dart';
 import 'package:doctor_app/controllers/referel_list_controller.dart';
+import 'package:doctor_app/controllers/referel_list_toggle_controller.dart';
 import 'package:doctor_app/controllers/referel_template_list_controller.dart';
+import 'package:doctor_app/controllers/referel_view_controller.dart';
 import 'package:doctor_app/controllers/register_controller.dart';
 import 'package:doctor_app/controllers/welcome_controller.dart';
 import 'package:get/instance_manager.dart';
@@ -42,7 +44,9 @@ class AuthBinder extends Bindings {
     /** REFERRAL */
     Get.put(ReferelController());
     Get.put(ReferelListController());
+    Get.put(ReferelListToggleController());
     Get.put(ReferelTemplateListController());
+    Get.put(ReferelViewController());
     /** REFERRAL */
 
     /** DRUG */
