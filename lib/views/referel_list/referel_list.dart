@@ -6,13 +6,14 @@ import 'package:get/route_manager.dart';
 class ReferelListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String title = Get.arguments['title'];
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(title),
       body: Body(),
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(String title) {
     return AppBar(
       backgroundColor: appBarBackgroundColor,
       automaticallyImplyLeading: true,
@@ -30,7 +31,7 @@ class ReferelListScreen extends StatelessWidget {
           //     Get.back();
           //   },
           // ),
-          Text("Referrals", style: TextStyle(color: Colors.white))
+          Text(title, style: TextStyle(color: Colors.white))
         ],
       ),
       elevation: 0,

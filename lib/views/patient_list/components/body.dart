@@ -8,12 +8,16 @@ import 'package:doctor_app/views/drug_list/drug_list.dart';
 import 'package:doctor_app/views/patient_add/patient_add.dart';
 import 'package:doctor_app/views/patient_history/patient_history.dart';
 import 'package:doctor_app/views/patient_profile/patient_profile.dart';
+import 'package:doctor_app/views/referel_list/referel_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
 class Body extends GetWidget<PatientController> {
   double offset = 0;
+  String qrCode = 'Unknown';
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class Body extends GetWidget<PatientController> {
 
     return ListView(children: <Widget>[
       _buildSearchBar(),
-      _buildQRButton(),
+      _buildQRButton(context),
       _buildButtonGrid(),
       SizedBox(height: 10.0),
       Divider(),
@@ -81,33 +85,49 @@ class Body extends GetWidget<PatientController> {
     );
   }
 
-  _buildQRButton() {
+  _buildQRButton(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 10),
-          padding: EdgeInsets.all(20),
-          height: 120,
-          width: 115,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 10),
-                blurRadius: 30,
-                color: kShadowColor,
-              ),
-            ],
-          ),
-          child: QuickAccessCard(
-              svgSrc: "assets/images/qr_code.png",
-              title: "Scan",
-              size: 50,
-              screen_: PatientHistoryScreen(),
-              arg_: {"patient_": 1}),
-        )
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.all(20),
+            height: 120,
+            width: 115,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 10),
+                  blurRadius: 30,
+                  color: kShadowColor,
+                ),
+              ],
+            ),
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    scanQRCode();
+                  },
+                  child: Image.asset(
+                    "assets/images/qr_code.png",
+                    color: kTextDarkColor,
+                    width: 50,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Scan",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: kTextDarkColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ))
       ],
     );
   }
@@ -133,10 +153,10 @@ class Body extends GetWidget<PatientController> {
             ],
           ),
           child: QuickAccessCard(
-              svgSrc: "assets/images/investigation.png",
-              title: "History",
+              svgSrc: "assets/images/patient_add.png",
+              title: "Add Patient",
               size: 50,
-              screen_: PatientHistoryScreen(),
+              screen_: PatientAddScreen(),
               arg_: {"patient_": 1}),
         ),
         Container(
@@ -156,11 +176,11 @@ class Body extends GetWidget<PatientController> {
             ],
           ),
           child: QuickAccessCard(
-              svgSrc: "assets/images/referral.png",
-              title: "Referral",
+              svgSrc: "assets/images/inbox.png",
+              title: "Inbox",
               size: 50,
-              screen_: DoctortListScreen(),
-              arg_: {"patient_": 1, "patient_name": 'sss'}),
+              screen_: ReferelListScreen(),
+              arg_: {"action": 1, "title": "Inbox"}),
         ),
         Container(
           margin: EdgeInsets.only(top: 5, right: 10),
@@ -179,11 +199,11 @@ class Body extends GetWidget<PatientController> {
             ],
           ),
           child: QuickAccessCard(
-            svgSrc: "assets/images/prescription.png",
+            svgSrc: "assets/images/outbox.png",
             size: 40,
-            title: "Prescription",
-            screen_: DrugListScreen(),
-            arg_: {"patient_": 1},
+            title: "Outbox",
+            screen_: ReferelListScreen(),
+            arg_: {"action": 0, "title": "Outbox"},
           ),
         )
       ],
@@ -233,6 +253,25 @@ class Body extends GetWidget<PatientController> {
         }
       },
     );
+  }
+
+  Future<void> scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.QR,
+      );
+
+      //  if (!mounted) return;
+
+      this.qrCode = qrCode;
+      Get.to(PatientProfileScreen(),
+          arguments: {"id": int.parse(this.qrCode.toString())});
+    } on PlatformException {
+      qrCode = 'Failed to get platform version.';
+    }
   }
 }
 

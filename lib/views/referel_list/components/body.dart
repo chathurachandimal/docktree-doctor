@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 class Body extends GetWidget<ReferelListController> {
   @override
   Widget build(BuildContext context) {
+    int action = Get.arguments['action'];
+    controller.selectedIndex.value = action;
     controller.fetchRreferels();
     //List<bool> _selections = List.generate(2, (_) => false);
 
@@ -18,8 +20,6 @@ class Body extends GetWidget<ReferelListController> {
 
     return ListView(children: <Widget>[
       _buildSearchBar(),
-      SizedBox(height: 10.0),
-      BuildToggle(size),
       SizedBox(height: 10.0),
       Divider(),
       _buildList(size),
