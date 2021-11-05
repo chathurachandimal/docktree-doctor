@@ -52,9 +52,7 @@ class Body extends GetWidget<OptController> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     controller: firstController,
-                 
-                     
-                     
+                    textInputAction: TextInputAction.next    
                   ),
                 ),
                 SizedBox(
@@ -69,7 +67,7 @@ class Body extends GetWidget<OptController> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     controller: secondController,
-                
+                    textInputAction: TextInputAction.next
                   ),
                 ),
                 SizedBox(
@@ -99,6 +97,7 @@ class Body extends GetWidget<OptController> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     controller: fourthController,
+                    textInputAction: TextInputAction.next
                   ),
                 ),
               ]),
