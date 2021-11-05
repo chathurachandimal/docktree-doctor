@@ -4,6 +4,7 @@ import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/opt_controller.dart';
 import 'package:doctor_app/views/opt/components/background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Body extends GetWidget<OptController> {
@@ -11,6 +12,8 @@ class Body extends GetWidget<OptController> {
   final TextEditingController secondController = TextEditingController();
   final TextEditingController thirdController = TextEditingController();
   final TextEditingController fourthController = TextEditingController();
+  FocusNode _nameFocusNode;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -39,21 +42,26 @@ class Body extends GetWidget<OptController> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 SizedBox(
                   width: (size.width * (60 / 375)),
-                  child: TextFormField(
+                  child: TextField(
                     autofocus: true,
                     maxLength: 1,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     obscureText: true,
                     cursorColor: kTextDarkColor,
                     style: TextStyle(fontSize: 24),
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     controller: firstController,
+                 
+                     
+                     
                   ),
                 ),
                 SizedBox(
                   width: (size.width * (60 / 375)),
-                  child: TextFormField(
+                  child: TextField(
                     maxLength: 1,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     autofocus: true,
                     obscureText: true,
                     style: TextStyle(fontSize: 24),
@@ -61,25 +69,29 @@ class Body extends GetWidget<OptController> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     controller: secondController,
+                
                   ),
                 ),
                 SizedBox(
                   width: (size.width * (60 / 375)),
-                  child: TextFormField(
+                  child: TextField(
                     autofocus: true,
                     maxLength: 1,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     obscureText: true,
                     style: TextStyle(fontSize: 24),
                     cursorColor: kTextDarkColor,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     controller: thirdController,
+                    textInputAction: TextInputAction.next
                   ),
                 ),
                 SizedBox(
                   width: (size.width * (60 / 375)),
-                  child: TextFormField(
+                  child: TextField(
                     maxLength: 1,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     autofocus: true,
                     obscureText: true,
                     style: TextStyle(fontSize: 24),

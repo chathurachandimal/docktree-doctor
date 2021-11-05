@@ -9,6 +9,7 @@ class Doctor {
     this.dob,
     this.user_id,
     this.status,
+    this.speciality,
   });
 
   int id;
@@ -20,6 +21,7 @@ class Doctor {
   String dob;
   int user_id;
   bool status;
+  List speciality;
 
   // factory Auth.fromJson(Map<String, dynamic> json) => Auth(
   //       auth: json["auth"],
@@ -36,6 +38,7 @@ class Doctor {
         "dob": dob,
         "user_id": user_id,
         "status": status,
+        "speciality": speciality,
       };
 
   // Auth fromJson(Map<String, dynamic> json) {
@@ -52,5 +55,6 @@ class Doctor {
         mobile = json['mobile'],
         dob = json['dob'],
         user_id = json['user_id'],
-        status = json['status'];
+        status = json['status'],
+        speciality = json['speciality'];
 }

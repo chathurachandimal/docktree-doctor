@@ -2,6 +2,7 @@ import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/doctor_controller.dart';
 import 'package:doctor_app/models/doctor.dart';
 import 'package:doctor_app/size_config.dart';
+import 'package:doctor_app/views/Home/components/background.dart';
 import 'package:doctor_app/views/referel_add/referel_add.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -126,11 +127,13 @@ class ListCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Opacity(
-                    opacity: 0.64,
-                    child: Text('${doctor.mobile}',
-                        maxLines: 1, overflow: TextOverflow.clip),
-                  ),
+                  // Opacity(
+                  //   opacity: 0.64,
+                  //   child: Text('${doctor.speciality.length}',
+                  //       maxLines: 1, overflow: TextOverflow.clip),
+                        
+                  // ),
+                   getTextWidgets(doctor.speciality)
                 ],
               )
             ]),
@@ -146,5 +149,15 @@ class ListCard extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  Widget getTextWidgets(List<dynamic> strings)
+  {
+    if(strings != null && strings.length > 0   ){
+       return Wrap( spacing: 5 , runSpacing: 2,children:   strings.map((item) =>  new Text(item['speciality'] , style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)) ).toList() ) ; 
+    }else{
+      return new Row( children : [Text('',) ] );
+    }
+   
   }
 }
