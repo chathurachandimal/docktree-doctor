@@ -2,9 +2,11 @@ import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/patient_controller.dart';
 import 'package:doctor_app/models/patient.dart';
 import 'package:doctor_app/size_config.dart';
+import 'package:doctor_app/views/Home/components/quick_access_card.dart';
 import 'package:doctor_app/views/doctor_list/doctor_list.dart';
 import 'package:doctor_app/views/drug_list/drug_list.dart';
 import 'package:doctor_app/views/patient_add/patient_add.dart';
+import 'package:doctor_app/views/patient_history/patient_history.dart';
 import 'package:doctor_app/views/patient_profile/patient_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,8 +23,8 @@ class Body extends GetWidget<PatientController> {
 
     return ListView(children: <Widget>[
       _buildSearchBar(),
-      SizedBox(height: 20.0),
-      _buildAddLink(),
+      _buildQRButton(),
+      _buildButtonGrid(),
       SizedBox(height: 10.0),
       Divider(),
       _buildList(size),
@@ -61,11 +63,10 @@ class Body extends GetWidget<PatientController> {
       ),
       child: TextField(
         onChanged: (value) => {
-          if(value.length > 0){
-            controller.searchPatients(value)
-          }else{
-            controller.fetchPatients()
-          }
+          if (value.length > 0)
+            {controller.searchPatients(value)}
+          else
+            {controller.fetchPatients()}
         },
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
@@ -77,6 +78,115 @@ class Body extends GetWidget<PatientController> {
             hintText: "Search patient",
             prefixIcon: Icon(Icons.search)),
       ),
+    );
+  }
+
+  _buildQRButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.all(20),
+          height: 120,
+          width: 115,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 30,
+                color: kShadowColor,
+              ),
+            ],
+          ),
+          child: QuickAccessCard(
+              svgSrc: "assets/images/qr_code.png",
+              title: "Scan",
+              size: 50,
+              screen_: PatientHistoryScreen(),
+              arg_: {"patient_": 1}),
+        )
+      ],
+    );
+  }
+
+  _buildButtonGrid() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 5, left: 10),
+          padding: EdgeInsets.all(20),
+          height: 120,
+          width: 115,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 30,
+                color: kShadowColor,
+              ),
+            ],
+          ),
+          child: QuickAccessCard(
+              svgSrc: "assets/images/investigation.png",
+              title: "History",
+              size: 50,
+              screen_: PatientHistoryScreen(),
+              arg_: {"patient_": 1}),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 5),
+          padding: EdgeInsets.all(20),
+          height: 120,
+          width: 115,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 30,
+                color: kShadowColor,
+              ),
+            ],
+          ),
+          child: QuickAccessCard(
+              svgSrc: "assets/images/referral.png",
+              title: "Referral",
+              size: 50,
+              screen_: DoctortListScreen(),
+              arg_: {"patient_": 1, "patient_name": 'sss'}),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 5, right: 10),
+          padding: EdgeInsets.all(20),
+          height: 120,
+          width: 115,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 30,
+                color: kShadowColor,
+              ),
+            ],
+          ),
+          child: QuickAccessCard(
+            svgSrc: "assets/images/prescription.png",
+            size: 40,
+            title: "Prescription",
+            screen_: DrugListScreen(),
+            arg_: {"patient_": 1},
+          ),
+        )
+      ],
     );
   }
 
@@ -164,51 +274,11 @@ class ListCard extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        Get.to(DrugListScreen(),
-                            arguments: {"patient_id": patient.id});
-                      },
-                      child: (Container(
-                        //margin: EdgeInsets.only(top: 20),
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        height: 40,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              blurRadius: 5,
-                              color: kShadowColor,
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Row(
-                              children: [
-                                Icon(Icons.local_hospital, size: 12),
-                                SizedBox(width: 5),
-                                Text(
-                                  'Prescription',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                          color: kTextDarkColor,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ))),
-                  SizedBox(width: 15),
-                  GestureDetector(
-                      onTap: () {
-                        Get.to(DoctortListScreen(),
-                            arguments: {"patient_id": patient.id,"patient_name":patient.first_name +' '+patient.last_name});
+                        Get.to(DoctortListScreen(), arguments: {
+                          "patient_id": patient.id,
+                          "patient_name":
+                              patient.first_name + ' ' + patient.last_name
+                        });
                       },
                       child: (Container(
                         //margin: EdgeInsets.only(top: 20),

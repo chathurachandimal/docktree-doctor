@@ -15,7 +15,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, top: 10, right: 10),
+      margin: EdgeInsets.only(top: 10),
       padding: EdgeInsets.only(left: 10, top: 35, right: 20),
       height: 200,
       width: double.infinity,
@@ -35,12 +35,6 @@ class Header extends StatelessWidget {
             color: Color(0xFFDADADA).withOpacity(0.3),
           ),
         ],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-          bottomLeft: Radius.circular(40),
-          bottomRight: Radius.circular(40),
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

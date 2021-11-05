@@ -5,14 +5,33 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Body());
+    return Scaffold(appBar: buildAppBar(), body: Body());
   }
 
   AppBar buildAppBar() {
     return AppBar(
-      backgroundColor: appBarBackgroundColor,
+      backgroundColor: Colors.white,
       brightness: Brightness.dark,
       automaticallyImplyLeading: false,
+      centerTitle: false,
+      leadingWidth: 0,
+      title: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Image.asset(
+          "assets/images/app_logo.png",
+          fit: BoxFit.cover,
+          width: 150,
+        ),
+      ),
+      elevation: 0,
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(Icons.add),
+      //     onPressed: () {
+      //       Get.to(PatientAddScreen());
+      //     },
+      //   ),
+      // ],
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:doctor_app/components/header.dart';
 import 'package:doctor_app/views/Home/components/quick_access_card.dart';
-import 'package:doctor_app/views/patient_list/patient_list.dart';
 import 'package:doctor_app/views/patient_profile/patient_profile.dart';
 import 'package:doctor_app/views/prescription_list/prescription_list.dart';
 import 'package:doctor_app/views/referel_list/referel_list.dart';
@@ -43,35 +42,6 @@ class Body extends StatelessWidget {
               offset: offset,
             ),
             Container(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon:
-                              SvgPicture.asset("assets/icons/qr-code-scan.svg"),
-                          iconSize: 60,
-                          onPressed: () {
-                            scanQRCode();
-                          },
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('tap to scan', style: TextStyle(fontSize: 15)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -81,81 +51,38 @@ class Body extends StatelessWidget {
                     color: Color(0xFFDADADA).withOpacity(0.3),
                   ),
                 ],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
               ),
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 20, left: 10),
                     child: Row(
                       children: <Widget>[
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage:
+                              AssetImage('assets/images/uni_logo.jpg'),
+                        ),
                         Text(
-                          "Quick Access",
+                          "  Unicef",
                           style: kTitleTextstyle,
                         ),
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        padding: EdgeInsets.all(15),
-                        height: 115,
-                        width: 115,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromRGBO(60, 193, 250, 1),
-                        ),
-                        child: QuickAccessCard(
-                            svgSrc: "assets/images/referral.png",
-                            title: "Referrals",
-                            size: 50,
-                            screen_: ReferelListScreen()),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        padding: EdgeInsets.all(15),
-                        height: 115,
-                        width: 115,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromRGBO(202, 245, 95, 1),
-                        ),
-                        child: QuickAccessCard(
-                            svgSrc: "assets/images/prescription.png",
-                            title: "Prescription",
-                            size: 50,
-                            screen_: PrescriptionListScreen()),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        padding: EdgeInsets.all(15),
-                        height: 115,
-                        width: 115,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromRGBO(242, 120, 124, 1),
-                        ),
-                        child: QuickAccessCard(
-                          svgSrc: "assets/images/investigation.png",
-                          title: "Investigation",
-                          size: 50,
-                          //screen_: PatientListScreen()
-                        ),
-                      )
-                    ],
+                  Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    height: 178,
+                    width: size.width,
+                    child: Image.asset(
+                      "assets/images/banner_1.png",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              margin: EdgeInsets.only(top: 40),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -165,53 +92,78 @@ class Body extends StatelessWidget {
                     color: Color(0xFFDADADA).withOpacity(0.3),
                   ),
                 ],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
               ),
               child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Spread of Virus",
-                        style: kTitleTextstyle,
-                      ),
-                      Text(
-                        "See details",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
+                children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 20),
-                    padding: EdgeInsets.all(20),
-                    height: 178,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 30,
-                          color: kShadowColor,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage:
+                              AssetImage('assets/images/uni_logo.jpg'),
+                        ),
+                        Text(
+                          "  Unicef",
+                          style: kTitleTextstyle,
                         ),
                       ],
                     ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    height: 178,
+                    width: size.width,
                     child: Image.asset(
-                      "assets/images/map.png",
-                      fit: BoxFit.contain,
+                      "assets/images/banner_2.jpg",
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ],
               ),
-            )
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, -15),
+                    blurRadius: 10,
+                    color: Color(0xFFDADADA).withOpacity(0.3),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage:
+                              AssetImage('assets/images/uni_logo.jpg'),
+                        ),
+                        Text(
+                          "  Unicef",
+                          style: kTitleTextstyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    height: 178,
+                    width: size.width,
+                    child: Image.asset(
+                      "assets/images/banner_3.jpg",
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -230,7 +182,8 @@ class Body extends StatelessWidget {
       //  if (!mounted) return;
 
       this.qrCode = qrCode;
-      Get.to(PatientProfileScreen(), arguments: {"id":  int.parse(this.qrCode.toString()) });
+      Get.to(PatientProfileScreen(),
+          arguments: {"id": int.parse(this.qrCode.toString())});
     } on PlatformException {
       qrCode = 'Failed to get platform version.';
     }
