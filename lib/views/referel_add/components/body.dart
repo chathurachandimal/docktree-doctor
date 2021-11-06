@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:doctor_app/components/rounded_button.dart';
 import 'package:doctor_app/components/rounded_input_area_field.dart';
 import 'package:doctor_app/components/rounded_input_field.dart';
+import 'package:doctor_app/components/rounded_unfilled_button.dart';
 import 'package:doctor_app/controllers/referel_controller.dart';
 import 'package:doctor_app/views/referel_template_list/referel_template_list.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +29,12 @@ class Body extends GetWidget<ReferelController> {
     String created_doc_name = storage_.read('full_name');
     Size size = MediaQuery.of(context).size;
     note.text = "";
-    note.text = note_;
-
+    if (note_ == "") {
+      note.text =
+          "Dear ,\n\n\n\n\n\n\n\nPlease be kind enough to see this patient and do the needful.\nthank you,\nDr ${created_doc_name},\nspeciality";
+    } else {
+      note.text = note_;
+    }
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy').format(now);
     // This size provide us total height and width of our screen
@@ -56,7 +63,7 @@ class Body extends GetWidget<ReferelController> {
               //   icon: Icons.perm_contact_calendar,
               //   onChanged: (value) {},
               // ),
-              RoundedButton(
+              RoundedUnfilledButton(
                 text: "Load From Template",
                 press: () {
                   Get.to(ReferelTemplateListScreen(), arguments: {
@@ -81,12 +88,12 @@ class Body extends GetWidget<ReferelController> {
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w500)),
                           SizedBox(height: size.height * 0.001),
-                          Text("Dear Dr ${referDoc},",
+                          Text("Dr ${referDoc},",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500)),
                           SizedBox(height: size.height * 0.01),
                           Divider(),
-                          Text("Mr. ${patientName}",
+                          Text("Mr. ${patientName} / 24 / M",
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500))
                         ],
@@ -107,90 +114,69 @@ class Body extends GetWidget<ReferelController> {
                   maxLines: 12,
                   icon: Icons.perm_contact_calendar,
                   controller: note),
+
               Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: (Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("From",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500)),
-                            Text("Dr ${created_doc_name}",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500)),
-                          ],
-                        ),
-                      ]))),
-              SizedBox(height: size.height * 0.05),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: (Row(
-                    children: [
-                      RoundedButton(
-                        text: "Save & Send",
-                        widthRatio: .45,
-                        press: () {
-                          Get.defaultDialog(
-                              title: "Save as a Template",
-                              textConfirm: "Save",
-                              textCancel: "Cancel",
-                              confirmTextColor: Colors.white,
-                              barrierDismissible: false,
-                              radius: 20,
-                              content: Padding(
-                                padding: const EdgeInsets.all(15),
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: size.height * 0.01),
-                                    RoundedInputField(
-                                        hintText: "Template name",
-                                        controller: tplNameController)
-                                  ],
-                                ),
-                              ),
-                              onConfirm: () {
-                                if (tplNameController.text.isBlank) {
-                                  Get.snackbar(
-                                    "Woops",
-                                    "Invalid template name",
-                                    snackPosition: SnackPosition.BOTTOM,
-                                  );
-                                  return;
-                                }
-                                controller.saveAndNextReferel({
-                                  "template": "",
-                                  "name": tplNameController.text,
-                                  "doctor_id": created_by,
-                                  "status": 1
-                                }, {
-                                  "referral_note": note.text,
-                                  "doctor_id": created_by,
-                                  "doctor_id_referral": doc_id,
-                                  "patient_id": patient_id
-                                });
-                                Get.back();
-                              });
-                        },
-                      ),
-                      Spacer(),
-                      RoundedButton(
-                        text: "Send",
-                        widthRatio: .45,
-                        press: () {
-                          controller.newReferel({
-                            "referral_note": note.text,
-                            "doctor_id": created_by,
-                            "doctor_id_referral": doc_id,
-                            "patient_id": patient_id
-                          });
-                          Get.back();
-                        },
-                      ),
-                    ],
-                  ))),
+                child:
+                    // RoundedButton(
+                    //   text: "Save & Send",
+                    //   widthRatio: .45,
+                    //   press: () {
+                    //     Get.defaultDialog(
+                    //         title: "Save as a Template",
+                    //         textConfirm: "Save",
+                    //         textCancel: "Cancel",
+                    //         confirmTextColor: Colors.white,
+                    //         barrierDismissible: false,
+                    //         radius: 20,
+                    //         content: Padding(
+                    //           padding: const EdgeInsets.all(15),
+                    //           child: Column(
+                    //             children: [
+                    //               SizedBox(height: size.height * 0.01),
+                    //               RoundedInputField(
+                    //                   hintText: "Template name",
+                    //                   controller: tplNameController)
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         onConfirm: () {
+                    //           if (tplNameController.text.isBlank) {
+                    //             Get.snackbar(
+                    //               "Woops",
+                    //               "Invalid template name",
+                    //               snackPosition: SnackPosition.BOTTOM,
+                    //             );
+                    //             return;
+                    //           }
+                    //           controller.saveAndNextReferel({
+                    //             "template": "",
+                    //             "name": tplNameController.text,
+                    //             "doctor_id": created_by,
+                    //             "status": 1
+                    //           }, {
+                    //             "referral_note": note.text,
+                    //             "doctor_id": created_by,
+                    //             "doctor_id_referral": doc_id,
+                    //             "patient_id": patient_id
+                    //           });
+                    //           Get.back();
+                    //         });
+                    //   },
+                    // ),
+                    // Spacer(),
+                    RoundedButton(
+                  text: "Next",
+                  press: () {
+                    controller.newReferel({
+                      "referral_note": note.text,
+                      "doctor_id": created_by,
+                      "doctor_id_referral": doc_id,
+                      "patient_id": patient_id
+                    });
+                    Get.back();
+                  },
+                ),
+              ),
               Row(mainAxisAlignment: MainAxisAlignment.center),
               SizedBox(height: size.height * 0.03),
               // AlreadyHaveAnAccountCheck(
