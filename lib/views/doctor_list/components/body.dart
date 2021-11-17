@@ -133,7 +133,19 @@ class ListCard extends StatelessWidget {
                   //       maxLines: 1, overflow: TextOverflow.clip),
                         
                   // ),
-                   getTextWidgets(doctor.speciality)
+                   specialityList(doctor.speciality)
+                ],
+              )
+              ,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Opacity(
+                    opacity: 0.64,
+                    child: Text('${doctor.mobile}',
+                        maxLines: 1, overflow: TextOverflow.clip),
+                        
+                  ),
                 ],
               )
             ]),
@@ -151,10 +163,10 @@ class ListCard extends StatelessWidget {
     );
   }
 
-  Widget getTextWidgets(List<dynamic> strings)
+  Widget specialityList(List<dynamic> strings)
   {
     if(strings != null && strings.length > 0   ){
-       return Wrap( spacing: 5 , runSpacing: 2,children:   strings.map((item) =>  new Text(item['speciality'] , style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)) ).toList() ) ; 
+       return Wrap( spacing: 5 , runSpacing: 2,children:   strings.map((item) =>  new Text(item['speciality'] , style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200)) ).toList() ) ; 
     }else{
       return new Row( children : [Text('',) ] );
     }
