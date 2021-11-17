@@ -1,3 +1,4 @@
+import 'package:doctor_app/components/rounded_input_area_field.dart';
 import 'package:doctor_app/constants.dart';
 import 'package:doctor_app/controllers/referel_template_list_controller.dart';
 import 'package:doctor_app/models/referel_template_list.dart';
@@ -7,6 +8,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class Body extends GetWidget<ReferelTemplateListController> {
+  final List<int> numbers = [1, 2, 3, 5, 8, 13, 21, 34, 55];
+  final TextEditingController note = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     controller.fetchRreferelTemplates();
@@ -73,20 +77,86 @@ class Body extends GetWidget<ReferelTemplateListController> {
         //       ),
         //     )),
         SizedBox(height: size.height * 0.01),
-        Expanded(child: Obx(() {
-          if (controller.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return ListView.builder(
-                itemCount: controller.referelTemplates.length,
-                itemBuilder: (context, index) => PreventCard(
-                    controller.referelTemplates[index],
-                    doc_id,
-                    patient_id,
-                    patientName,
-                    referDoc));
-          }
-        }))
+        // Expanded(child: Obx(() {
+        //   if (controller.isLoading.value) {
+        //     return Center(child: CircularProgressIndicator());
+        //   } else {
+        //     return ListView.builder(
+        //         itemCount: controller.referelTemplates.length,
+        //         itemBuilder: (context, index) => PreventCard(
+        //             controller.referelTemplates[index],
+        //             doc_id,
+        //             patient_id,
+        //             patientName,
+        //             referDoc));
+        //   }
+        // }))
+
+        Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            height: MediaQuery.of(context).size.height - 200,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: numbers.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("test tmp"),
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height - 300,
+                        child: Card(
+                          color: Colors.white70,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 50),
+                                child: (Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("20/22/2020",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500)),
+                                          SizedBox(height: size.height * 0.001),
+                                          Text("Dr Chandi,",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500)),
+                                          SizedBox(height: size.height * 0.01),
+                                          Divider(),
+                                          Text("Mr. Manee / 24 / M",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500))
+                                        ],
+                                      ),
+                                    ])),
+                              ),
+                              RoundedInputAreaField(
+                                  hintText: "Note",
+                                  maxLines: 12,
+                                  icon: Icons.perm_contact_calendar,
+                                  controller: note)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }))
       ],
     );
   }
